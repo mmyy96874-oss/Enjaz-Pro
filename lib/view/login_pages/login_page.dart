@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../routes.dart';
+import 'auth_widgets.dart';
+import 'register_page.dart';
+import 'forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,162 +12,101 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _isLoading = false;
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _login() async {
-    if (!_formKey.currentState!.validate()) return;
-
-    setState(() => _isLoading = true);
-
-    // Simulate login process
-    await Future.delayed(const Duration(seconds: 2));
-
-    if (mounted) {
-      setState(() => _isLoading = false);
-      Navigator.pushReplacementNamed(context, AppRoutes.admin);
-    }
-  }
+  bool _rememberMe = false;
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: Colors.grey[100],
-        body: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Card(
-                elevation: 8,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: Form(
-                    key: _formKey,
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(colors: [Color(0xFF3B67F3), Color(0xFF2342B0)]),
+        ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              buildLogoHeader(),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(25),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(35), topRight: Radius.circular(35)),
+                  ),
+                  child: SingleChildScrollView(
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        // Logo/Title
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF6366F1),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: const Icon(
-                            Icons.admin_panel_settings,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        Text(
-                          'إنجاز برو',
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xFF6366F1),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'نظام إدارة المشاريع',
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        const SizedBox(height: 32),
-
-                        // Email Field
-                        TextFormField(
-                          controller: _emailController,
+                        const Text("تسجيل الدخول", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF2342B0))),
+                        const SizedBox(height: 25),
+                        CustomAuthField(
+                          label: "رقم الهاتف أو البريد الإلكتروني",
+                          hint: "أدخل رقم الهاتف أو البريد",
+                          icon: Icons.person_outline,
                           keyboardType: TextInputType.emailAddress,
-                          textDirection: TextDirection.ltr,
-                          decoration: InputDecoration(
-                            labelText: 'البريد الإلكتروني',
-                            prefixIcon: const Icon(Icons.email_outlined),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
                           validator: (value) {
-                            if (value?.isEmpty ?? true) {
-                              return 'يرجى إدخال البريد الإلكتروني';
-                            }
+                            if (value == null || value.isEmpty) return 'هذا الحقل مطلوب (شرط 1)';
                             return null;
                           },
                         ),
-                        const SizedBox(height: 16),
-
-                        // Password Field
-                        TextFormField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: 'كلمة المرور',
-                            prefixIcon: const Icon(Icons.lock_outlined),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
+                        const SizedBox(height: 20),
+                        CustomAuthField(
+                          label: "كلمة المرور",
+                          hint: "أدخل كلمة المرور",
+                          icon: Icons.lock_outline,
+                          isPassword: true,
+                          textInputAction: TextInputAction.done,
                           validator: (value) {
-                            if (value?.isEmpty ?? true) {
-                              return 'يرجى إدخال كلمة المرور';
-                            }
+                            if (value == null || value.isEmpty) return 'كلمة المرور مطلوبة';
+                            if (value.length < 6) return 'يجب أن تكون 6 أحرف على الأقل (شرط 3)';
                             return null;
                           },
                         ),
-                        const SizedBox(height: 24),
-
-                        // Login Button
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child: ElevatedButton(
-                            onPressed: _isLoading ? null : _login,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF6366F1),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          textDirection: TextDirection.rtl,
+                          children: [
+                            TextButton(
+                              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (c) => const ForgotPasswordPage())),
+                              child: const Text("نسيت كلمة المرور؟"),
                             ),
-                            child: _isLoading
-                                ? const SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                    ),
-                                  )
-                                : const Text(
-                                    'تسجيل الدخول',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
+                            Row(
+                              children: [
+                                const Text("تذكرني", style: TextStyle(color: Colors.grey)),
+                                Checkbox(value: _rememberMe, onChanged: (v) => setState(() => _rememberMe = v!)),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF3B67F3),
+                            minimumSize: const Size(double.infinity, 55),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) { /* تسجيل دخول */ }
+                          },
+                          child: const Text("تسجيل الدخول", style: TextStyle(color: Colors.white, fontSize: 18)),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (c) => const RegisterPage())),
+                              child: const Text("تواصل مع الإدارة", style: TextStyle(fontWeight: FontWeight.bold)),
+                            ),
+                            const Text("ليس لديك حساب؟"),
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
       ),
