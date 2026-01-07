@@ -29,13 +29,14 @@ class MyApp extends StatelessWidget {
         ),
         
         // Card Theme
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        
+
+
         // Input Decoration Theme
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
