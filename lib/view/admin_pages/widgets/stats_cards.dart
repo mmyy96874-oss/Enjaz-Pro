@@ -16,7 +16,7 @@ class StatsCards extends StatelessWidget {
                   title: 'قيد التنفيذ',
                   count: '3',
                   icon: Icons.checklist,
-                  color: const Color(0xFF10B981), // Green from image
+                  color: Colors.green, // Green from image
                 ),
               ),
               const SizedBox(width: 10), // Reduced from 12
