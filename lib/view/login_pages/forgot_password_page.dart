@@ -21,13 +21,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         decoration: const BoxDecoration(gradient: LinearGradient(colors: [Color(0xFF3B67F3), Color(0xFF2342B0)])),
         child: Form(
           key: _formKey,
-          child: Column(
+          child: Center(
+            child: SingleChildScrollView( child: Column(
             children: [
               buildLogoHeader(),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(30),
-                  decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(35), topRight: Radius.circular(35))),
+
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  padding: const EdgeInsets.all(25),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25)
+                  ),
                   child: Column(
                     children: [
                       const Text("استعادة كلمة المرور", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF2342B0))),
@@ -53,8 +58,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ],
                   ),
                 ),
-              ),
+
             ],
+          ),
+            ),
           ),
         ),
       ),
