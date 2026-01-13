@@ -13,5 +13,5 @@ class AppRoutes {
     home: (_) => const HomePage(),
     login: (_) => const LoginPage(),
     admin: (_) => const AdminDashboardPage(),
-  };
+  }; 
 }
