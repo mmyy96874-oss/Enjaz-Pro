@@ -98,7 +98,7 @@ class DashboardScreen extends StatelessWidget {
                           ),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const Row(
+                        child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.add_circle, color: Colors.white, size: 28),
@@ -141,7 +141,7 @@ class DashboardScreen extends StatelessWidget {
                             width: 2,
                           ),
                         ),
-                        child: const Row(
+                        child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.folder_open, color: AppTheme.primaryBlue, size: 28),
