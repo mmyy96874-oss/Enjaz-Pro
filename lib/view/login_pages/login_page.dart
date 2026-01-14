@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (mounted) {
       setState(() => _isLoading = false);
-      Navigator.pushReplacementNamed(context, AppRoutes.admin);
+      Navigator.pushReplacementNamed(context, AppRoutes.userDashboard);
     }
   }
 
