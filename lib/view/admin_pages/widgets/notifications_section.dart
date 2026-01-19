@@ -9,7 +9,7 @@ class NotificationsSection extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.grey[50],
-        appBar: AppBar(
+        /*appBar: AppBar(
           title: const Text('الإشعارات'),
           backgroundColor: Colors.white,
           elevation: 0,
@@ -26,7 +26,7 @@ class NotificationsSection extends StatelessWidget {
               ),
             ),
           ],
-        ),
+        ),*/
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(12),
@@ -75,8 +75,8 @@ class NotificationsSection extends StatelessWidget {
                 // Notifications List
                 _NotificationItem(
                   icon: Icons.check_circle,
-                  iconColor: Colors.green[600]!,
-                  iconBgColor: Colors.green[50]!,
+                  iconColor: Colors.green[800]!,
+                  iconBgColor: Colors.green[100]!,
                   title: 'تم قبول مشروعك',
                   subtitle: 'تم قبول مشروع "نظام إدارة المكتبة الذكي" وتعيين المشرف',
                   time: 'منذ ساعتين',
@@ -88,7 +88,7 @@ class NotificationsSection extends StatelessWidget {
                 _NotificationItem(
                   icon: Icons.event,
                   iconColor: Colors.blue[600]!,
-                  iconBgColor: Colors.blue[50]!,
+                  iconBgColor: Colors.blue[100]!,
                   title: 'اجتماع قادم',
                   subtitle: 'لديك اجتماع غداً الساعة 10:00 صباحاً مع المشرف',
                   time: 'منذ 5 ساعات',
@@ -100,7 +100,7 @@ class NotificationsSection extends StatelessWidget {
                 _NotificationItem(
                   icon: Icons.warning,
                   iconColor: Colors.orange[600]!,
-                  iconBgColor: Colors.orange[50]!,
+                  iconBgColor: Colors.orange[100]!,
                   title: 'موعد تسليم قريب',
                   subtitle: 'تذكير: موعد تسليم المرحلة الثانية بعد 3 أيام',
                   time: 'منذ يوم واحد',

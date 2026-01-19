@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'routes.dart';
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -10,16 +11,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'إنجاز برو',
-      
+
+
+
+      supportedLocales: const [
+        Locale('en', ''), // English
+        Locale('ar', ''), // Arabic
+      ],
       // Remove locale settings to avoid localization errors
       // We'll handle RTL manually in each screen
-      
+
       // Theme Configuration
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Arial', // You can add Arabic fonts later
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        
+
         // AppBar Theme
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
@@ -27,15 +34,16 @@ class MyApp extends StatelessWidget {
           elevation: 0,
           systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
-        
+
         // Card Theme
-        // cardTheme: CardTheme(
-        //   elevation: 2,
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(12),
-        //   ),
-        // ),
-        //
+        cardTheme: CardThemeData(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+
+
         // Input Decoration Theme
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
@@ -46,7 +54,7 @@ class MyApp extends StatelessWidget {
             vertical: 12,
           ),
         ),
-        
+
         // Elevated Button Theme
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -60,7 +68,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      
+
       initialRoute: AppRoutes.initial,
       routes: AppRoutes.routes,
     );
