@@ -1,6 +1,10 @@
-import 'view/home_pages/home.dart';
+
 import 'view/login_pages/login_page.dart';
 import 'view/admin_pages/admin_dashboard_page.dart';
+
+//super admin home pages
+import 'view/Super_Admin/home_Super_Admin.dart';
+
 
 // User pages imports
 import 'view/user/lib/suer/dashboard.dart';
@@ -13,11 +17,17 @@ import 'view/user/lib/suer/planning.dart';
 import 'view/user/lib/suer/pert_chart.dart';
 import 'view/user/lib/suer/stopped_projects.dart';
 
+
+
 class AppRoutes {
   static const initial = login;
 
+  // Super Admin route
+  static const superAdmin = '/super-admin';
+
+
   // Main routes
-  static const home = '/home';
+
   static const login = '/login';
   static const admin = '/admin';
 
@@ -34,9 +44,11 @@ class AppRoutes {
 
   static final routes = {
     // Main routes
-    home: (_) => const HomePage(),
     login: (_) => const LoginPage(),
     admin: (_) => const AdminDashboardPage(),
+    //super admin routes
+    superAdmin: (_) => const Super_Admin(),
+
 
     // User routes
     userDashboard: (_) => const DashboardScreen(),

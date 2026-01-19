@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:enjaz_pro/Super_Admin/Project_DataSurs.dart';
+import 'package:enjaz_pro/view/Super_Admin/Project_DataSurs.dart';
 
 import 'Manager_DataSurs.dart';
 import 'Manager_model.dart';
