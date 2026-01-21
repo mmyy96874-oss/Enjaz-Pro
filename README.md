@@ -1,229 +1,230 @@
-# إنجاز برو (Enjaz Pro) - نظام إدارة المشاريع
+# Enjaz Pro - Project Management System
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter">
-  <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart">
-  <img src="https://img.shields.io/badge/Material%20Design-757575?style=for-the-badge&logo=material-design&logoColor=white" alt="Material Design">
-  <img src="https://img.shields.io/badge/Arabic%20RTL-00C851?style=for-the-badge" alt="Arabic RTL">
-</div>
+A comprehensive Flutter-based project management application with role-based authentication and real-time collaboration features.
 
-## 📋 نظرة عامة
+## 🚀 Features
 
-**إنجاز برو** هو تطبيق إدارة المشاريع مصمم خصيصاً للمشرفين والإداريين لإدارة المشاريع الأكاديمية والمهنية. يوفر التطبيق لوحة تحكم شاملة لتتبع المشاريع والاجتماعات والمهام والإشعارات مع دعم كامل للغة العربية.
+### Authentication & User Management
+- **Role-based Authentication**: Super Admin, Admin, and User roles
+- **Secure Login/Registration**: Email and password authentication
+- **Profile Management**: Update user information and preferences
+- **Password Recovery**: Forgot password functionality
 
-## ✨ المميزات الرئيسية
+### Project Management
+- **Project Creation & Management**: Create, edit, and manage projects
+- **Task Assignment**: Assign tasks to team members
+- **Progress Tracking**: Real-time project and task progress monitoring
+- **Status Management**: Track project status (Active, Completed, Paused, Cancelled)
+- **PERT Chart Visualization**: Project timeline and dependency visualization
 
-### 🔐 نظام المصادقة
-- تسجيل دخول آمن بالبريد الإلكتروني وكلمة المرور
-- واجهة مستخدم عربية مع دعم RTL
-- تحقق من صحة البيانات المدخلة
+### Dashboard & Analytics
+- **Role-specific Dashboards**: Customized views for each user role
+- **Statistics Cards**: Project counts, completion rates, and performance metrics
+- **Real-time Updates**: Live data synchronization across all users
+- **Notification System**: In-app notifications for project updates
 
-### 📊 لوحة التحكم الإدارية
-- **إحصائيات فورية**: عرض KPIs للمشاريع والاجتماعات
-- **إدارة المشاريع**: تتبع تقدم المشاريع مع شرائح التقدم
-- **جدولة الاجتماعات**: تنظيم وإدارة الاجتماعات القادمة
-- **إدارة المهام**: عرض المهام بمخططات متعددة (Gantt, PERT, الأعمدة)
-- **نظام الإشعارات**: تنبيهات فورية للأحداث المهمة
+### Multi-platform Support
+- **Web Application**: Responsive web interface
+- **Mobile Ready**: Android and iOS support
+- **Cross-platform**: Windows, macOS, and Linux desktop support
 
-### 🎨 التصميم والواجهة
-- تصميم Material Design 3 الحديث
-- دعم كامل للغة العربية (RTL)
-- ألوان متناسقة ومتجاوبة
-- واجهة سهلة الاستخدام ومتجاوبة
+## 🏗️ Architecture
 
-## 🏗️ هيكل المشروع
-
+### Clean Architecture Pattern
 ```
 lib/
-├── main.dart                          # نقطة دخول التطبيق
-├── app.dart                           # إعدادات التطبيق والثيم
-├── routes.dart                        # تعريف المسارات
-└── view/
-    ├── login_pages/
-    │   └── login_page.dart           # شاشة تسجيل الدخول
-    ├── home_pages/
-    │   └── home.dart                 # الصفحة الرئيسية
-    └── admin_pages/
-        ├── admin_dashboard_page.dart # لوحة التحكم الرئيسية
-        └── widgets/
-            ├── dashboard_header.dart      # رأس لوحة التحكم
-            ├── stats_cards.dart           # بطاقات الإحصائيات
-            ├── projects_section.dart      # قسم المشاريع
-            ├── tasks_section.dart         # قسم المهام
-            ├── meetings_section.dart      # قسم الاجتماعات
-            └── notifications_section.dart # قسم الإشعارات
+├── core/                   # Core functionality
+│   ├── constants/         # App constants
+│   ├── services/          # Core services (Database, API, Storage)
+│   └── utils/             # Utility functions
+├── data/                  # Data layer
+│   ├── models/            # Data models
+│   └── repositories/      # Data repositories
+├── presentation/          # Presentation layer
+│   ├── controllers/       # GetX controllers
+│   └── widgets/           # Reusable widgets
+└── view/                  # UI screens
+    ├── admin_pages/       # Admin dashboard
+    ├── login_pages/       # Authentication screens
+    ├── super_admin/       # Super admin dashboard
+    └── user/              # User dashboard
 ```
 
-## 🚀 البدء السريع
+### State Management
+- **GetX**: Reactive state management with dependency injection
+- **Reactive Programming**: Observable data streams for real-time updates
 
-### المتطلبات المسبقة
-- Flutter SDK (^3.5.4)
-- Dart SDK
-- Android Studio أو VS Code
-- محاكي Android/iOS أو جهاز فعلي
+### Data Storage
+- **Local Database**: SharedPreferences for web compatibility
+- **Offline Support**: Full offline functionality with data synchronization
+- **Sample Data**: Pre-populated test data for demonstration
 
-### التثبيت
+## 🛠️ Technologies Used
 
-1. **استنساخ المشروع**
-```bash
-git clone https://github.com/Muzamilz/Enjaz-Pro.git
-cd Enjaz-Pro
-```
+- **Flutter 3.x**: Cross-platform UI framework
+- **Dart**: Programming language
+- **GetX**: State management and dependency injection
+- **SharedPreferences**: Local data storage
+- **JSON Annotation**: Model serialization
+- **UUID**: Unique identifier generation
 
-2. **تثبيت التبعيات**
-```bash
-flutter pub get
-```
+## 📱 User Roles & Permissions
 
-3. **تشغيل التطبيق**
-```bash
-flutter run
-```
+### Super Admin
+- Full system access and control
+- User management (create, edit, delete users)
+- System-wide project oversight
+- Database management and reset functionality
+- Analytics and reporting
 
-## 📱 لقطات الشاشة والمميزات
+### Admin
+- Project management within assigned scope
+- Team member management
+- Task assignment and tracking
+- Project approval/rejection
+- Performance monitoring
 
-### 🔑 شاشة تسجيل الدخول
-- تصميم أنيق مع شعار التطبيق
-- حقول إدخال للبريد الإلكتروني وكلمة المرور
-- تحقق من صحة البيانات
-- مؤشر تحميل أثناء المعالجة
+### User
+- Personal dashboard with assigned projects
+- Task management and progress updates
+- Project creation requests
+- Profile management
+- Notifications and updates
 
-### 📊 لوحة التحكم الرئيسية
-- **رأس الصفحة**: معلومات المستخدم مع عداد الإشعارات
-- **بطاقات الإحصائيات**: 
-  - المشاريع قيد التنفيذ (أخضر)
-  - المشاريع المستحدثة (أزرق)
-  - المشاريع المنتهية (برتقالي)
-  - الاجتماعات القادمة (بنفسجي)
+## 🚀 Getting Started
 
-### 📁 إدارة المشاريع
-- عرض قائمة المشاريع مع التفاصيل
-- شريط تقدم لكل مشروع
-- معلومات الفريق والمشرف
-- أزرار إجراءات سريعة (تشغيل، جدولة، عرض التفاصيل)
+### Prerequisites
+- Flutter SDK (3.0 or higher)
+- Dart SDK (3.0 or higher)
+- Web browser (for web development)
+- Android Studio / VS Code (recommended IDEs)
 
-### 📅 إدارة الاجتماعات
-- **الاجتماعات القادمة**: قائمة بالاجتماعات المجدولة
-- **المهام المطلوبة**: قائمة مهام بمواعيد استحقاق
-- إضافة اجتماعات جديدة عبر نافذة منبثقة
-- تصنيف الاجتماعات حسب الأولوية
+### Installation
 
-### ✅ إدارة المهام
-- عرض المهام بثلاثة أنماط:
-  - **مخطط جانت**: عرض الجدول الزمني للمهام
-  - **مخطط PERT**: مخطط الشبكة (قيد التطوير)
-  - **مخطط الأعمدة**: مخطط بياني (قيد التطوير)
-- تتبع حالة إنجاز المهام
-- أزرار إيقاف/استكمال المشاريع
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Ismailbasha1/project-management.git
+   cd project-management
+   ```
 
-### 🔔 نظام الإشعارات
-- إشعارات مصنفة حسب النوع:
-  - قبول المشاريع (أخضر)
-  - تذكير الاجتماعات (أزرق)
-  - تنبيهات المواعيد (برتقالي)
-- عرض الوقت النسبي للإشعارات
-- تمييز الإشعارات غير المقروءة
+2. **Install dependencies**
+   ```bash
+   flutter pub get
+   ```
 
-## 🛠️ التقنيات المستخدمة
+3. **Generate model files**
+   ```bash
+   flutter packages pub run build_runner build
+   ```
 
-### الإطار والأدوات
-- **Flutter**: إطار تطوير التطبيقات المتعددة المنصات
-- **Dart**: لغة البرمجة
-- **Material Design 3**: نظام التصميم
+4. **Run the application**
+   ```bash
+   # For web
+   flutter run -d web-server --web-port=8080
+   
+   # For mobile
+   flutter run
+   
+   # For desktop
+   flutter run -d windows  # or macos/linux
+   ```
 
-### التبعيات
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  cupertino_icons: ^1.0.8
+## 🔐 Default Login Credentials
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^5.0.0
-```
+The application comes with pre-configured test accounts:
 
-### المميزات التقنية
-- **دعم RTL**: دعم كامل للغة العربية
-- **التنقل**: نظام تنقل بالمسارات المسماة
-- **إدارة الحالة**: استخدام setState للحالات البسيطة
-- **التحقق من النماذج**: تحقق من صحة البيانات المدخلة
-- **التصميم المتجاوب**: واجهة تتكيف مع أحجام الشاشات المختلفة
+| Role | Email | Password | Name |
+|------|-------|----------|------|
+| Super Admin | superadmin@enjaz.com | 123456 | مدير النظام الرئيسي |
+| Admin | admin@enjaz.com | 123456 | أحمد محمد الإداري |
+| User | user1@enjaz.com | 123456 | سارة أحمد |
+| User | user2@enjaz.com | 123456 | محمد علي |
 
-## 🎨 نظام الألوان
+## 🌐 Web Access
 
-| اللون | الكود | الاستخدام |
-|--------|-------|-----------|
-| الأساسي | `#6366F1` | الأزرار الرئيسية والعناصر المهمة |
-| الأخضر | `#10B981` | النجاح والمشاريع قيد التنفيذ |
-| الأزرق | `#3B82F6` | المعلومات والمشاريع الجديدة |
-| البرتقالي | `#F59E0B` | التحذيرات والمشاريع المكتملة |
-| البنفسجي | `#8B5CF6` | الاجتماعات والعناصر الثانوية |
-| الأحمر | `#DC2626` | الأخطاء والعناصر العاجلة |
+Once running, access the application at:
+- **Local Development**: http://localhost:8080
+- **Production**: [Your deployed URL]
 
-## 📋 الحالة الحالية
+## 📊 Key Features Walkthrough
 
-### ✅ مكتمل
-- واجهة تسجيل الدخول
-- لوحة التحكم الإدارية
-- واجهة إدارة المشاريع
-- واجهة جدولة الاجتماعات
-- نظام الإشعارات
-- دعم اللغة العربية
+### 1. Authentication Flow
+- Login with role-based redirection
+- Registration with role assignment
+- Password recovery system
+- Automatic session management
 
-### 🔄 قيد التطوير
-- تنفيذ مخطط PERT
-- تنفيذ مخطط الأعمدة
-- ربط قاعدة البيانات الخلفية
-- نظام المصادقة الحقيقي
-- حفظ البيانات محلياً
+### 2. Dashboard Experience
+- **Super Admin**: System overview, user management, global statistics
+- **Admin**: Project management, team oversight, approval workflows
+- **User**: Personal projects, task management, progress tracking
 
-## 🚀 التطوير المستقبلي
+### 3. Project Management
+- Create new projects with detailed information
+- Assign team members and set deadlines
+- Track progress with visual indicators
+- Manage project status and milestones
 
-### المميزات المخططة
-- **ربط API**: ربط مع خادم خلفي لإدارة البيانات
-- **قاعدة البيانات**: حفظ البيانات محلياً باستخدام SQLite أو Hive
-- **المخططات البيانية**: إضافة مكتبات الرسوم البيانية (fl_chart)
-- **الإشعارات الفورية**: إشعارات push notifications
-- **إدارة الحالة المتقدمة**: استخدام Provider أو Riverpod
-- **الاختبارات**: إضافة اختبارات الوحدة والواجهة
-- **الخطوط المخصصة**: إضافة خطوط عربية مخصصة
+### 4. Real-time Updates
+- Live notifications for project changes
+- Automatic data synchronization
+- Responsive UI updates across all connected users
 
-### التحسينات التقنية
-- معالجة الأخطاء المتقدمة
-- نظام تسجيل الأحداث
-- تحسين الأداء
-- دعم الوضع المظلم
-- إمكانية الوصول المحسنة
+## 🔧 Configuration
 
-## 🤝 المساهمة
+### Database Reset
+Super Admins can reset the database to restore default sample data:
+1. Login as Super Admin
+2. Click the refresh icon in the app bar
+3. Confirm the database reset operation
 
-نرحب بالمساهمات! يرجى اتباع الخطوات التالية:
+### Environment Setup
+The application automatically initializes with sample data for testing purposes. In production, you may want to:
+- Disable automatic sample data creation
+- Configure external API endpoints
+- Set up proper authentication backends
 
-1. Fork المشروع
-2. إنشاء فرع للميزة الجديدة (`git checkout -b feature/AmazingFeature`)
-3. Commit التغييرات (`git commit -m 'Add some AmazingFeature'`)
-4. Push للفرع (`git push origin feature/AmazingFeature`)
-5. فتح Pull Request
+## 🤝 Contributing
 
-## 📄 الترخيص
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-هذا المشروع مرخص تحت رخصة MIT - راجع ملف [LICENSE](LICENSE) للتفاصيل.
+## 📝 License
 
-## 👨‍💻 المطور
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**Muzamil** - [@Muzamilz](https://github.com/Muzamilz)
+## 🐛 Known Issues
 
-## 🙏 شكر وتقدير
+- Web platform uses SharedPreferences instead of SQLite for compatibility
+- Some UI elements may need RTL (Right-to-Left) adjustments for Arabic text
+- Mobile responsiveness may need fine-tuning on smaller screens
 
-- فريق Flutter لإطار العمل الرائع
-- مجتمع Material Design للتصميم المتميز
-- جميع المساهمين في المشاريع مفتوحة المصدر المستخدمة
+## 🔮 Future Enhancements
+
+- [ ] Real-time chat and collaboration
+- [ ] File upload and document management
+- [ ] Advanced reporting and analytics
+- [ ] Integration with external calendar systems
+- [ ] Mobile push notifications
+- [ ] Multi-language support
+- [ ] Dark mode theme
+- [ ] Export functionality (PDF, Excel)
+
+## 📞 Support
+
+For support and questions:
+- Create an issue in this repository
+- Contact: [Your contact information]
+
+## 🙏 Acknowledgments
+
+- Flutter team for the amazing framework
+- GetX community for state management solutions
+- Contributors and testers who helped improve the application
 
 ---
 
-<div align="center">
-  <p>صُنع بـ ❤️ باستخدام Flutter</p>
-</div>#   p r o j e c t - m a n a g e m e n t  
- 
+**Built with ❤️ using Flutter**

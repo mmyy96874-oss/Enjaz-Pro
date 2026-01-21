@@ -43,3 +43,54 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Web build artifacts
+/web/build/
+
+# Additional Flutter/Dart ignores
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+*.config.dart
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+
+# Firebase
+firebase_options.dart
+google-services.json
+GoogleService-Info.plist
+
+# API Keys and sensitive data
+/lib/core/constants/api_keys.dart
+/assets/config/
+
+# Generated files that should not be committed
+/lib/**/*.g.dart
+/lib/**/*.freezed.dart
+/lib/**/*.mocks.dart
+
+# Platform specific
+/macos/Flutter/ephemeral/
+/linux/flutter/ephemeral/
+/windows/flutter/ephemeral/
