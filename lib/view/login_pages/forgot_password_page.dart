@@ -1,67 +1,93 @@
 import 'package:flutter/material.dart';
-import 'auth_widgets.dart';
+import 'package:get/get.dart';
+import '../../presentation/controllers/auth_controller.dart';
 
-class ForgotPasswordPage extends StatefulWidget {
+class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({super.key});
 
   @override
-  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
-}
-
-class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  final _formKey = GlobalKey<FormState>();
-
-  @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find<AuthController>();
+
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0, iconTheme: const IconThemeData(color: Colors.white)),
-      extendBodyBehindAppBar: true,
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(gradient: LinearGradient(colors: [Color(0xFF3B67F3), Color(0xFF2342B0)])),
+      appBar: AppBar(
+        title: const Text('Forgot Password'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Form(
-          key: _formKey,
-          child: Center(
-            child: SingleChildScrollView( child: Column(
+          key: authController.forgotPasswordFormKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              buildLogoHeader(),
-
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
-                  padding: const EdgeInsets.all(25),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(25)
-                  ),
-                  child: Column(
-                    children: [
-                      const Text("استعادة كلمة المرور", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF2342B0))),
-                      const SizedBox(height: 30),
-                      CustomAuthField(
-                        label: "البريد الإلكتروني",
-                        hint: "أدخل بريدك لإرسال الرمز",
-                        icon: Icons.email_outlined,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.done,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) return 'الحقل مطلوب';
-                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) return 'بريد غير صحيح';
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 40),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF3B67F3), minimumSize: const Size(double.infinity, 55)),
-                        onPressed: () { if (_formKey.currentState!.validate()) {} },
-                        child: const Text("إرسال الرمز", style: TextStyle(color: Colors.white)),
-                      ),
-                    ],
-                  ),
+              const SizedBox(height: 40),
+              
+              // Icon
+              const Icon(
+                Icons.lock_reset,
+                size: 80,
+                color: Colors.blue,
+              ),
+              
+              const SizedBox(height: 20),
+              
+              // Title
+              const Text(
+                'Reset Password',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
-
+                textAlign: TextAlign.center,
+              ),
+              
+              const SizedBox(height: 10),
+              
+              // Description
+              const Text(
+                'Enter your email address and we\'ll send you a link to reset your password.',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              
+              const SizedBox(height: 40),
+              
+              // Email Field
+              TextFormField(
+                controller: authController.emailController,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email),
+                ),
+                keyboardType: TextInputType.emailAddress,
+                validator: authController.validateEmail,
+              ),
+              
+              const SizedBox(height: 32),
+              
+              // Send Reset Link Button
+              Obx(() => ElevatedButton(
+                onPressed: authController.isLoading.value
+                    ? null
+                    : authController.forgotPassword,
+                child: authController.isLoading.value
+                    ? const CircularProgressIndicator()
+                    : const Text('Send Reset Link'),
+              )),
+              
+              const SizedBox(height: 16),
+              
+              // Back to Login
+              TextButton(
+                onPressed: () => Get.back(),
+                child: const Text('Back to Login'),
+              ),
             ],
-          ),
-            ),
           ),
         ),
       ),

@@ -8,6 +8,7 @@ class ProjectCard extends StatelessWidget {
   final List<Color> statusGradient;
   final String description;
   final String? currentPhase;
+  final double? progress;
   final VoidCallback? onTap;
 
   const ProjectCard({
@@ -18,6 +19,7 @@ class ProjectCard extends StatelessWidget {
     required this.statusGradient,
     required this.description,
     this.currentPhase,
+    this.progress,
     this.onTap,
   });
 
@@ -113,6 +115,42 @@ class ProjectCard extends StatelessWidget {
                     color: AppTheme.textSecondary,
                   ),
                 ),
+                if (progress != null) ...[
+                  const SizedBox(height: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'التقدم',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppTheme.textSecondary,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            '${(progress! * 100).toInt()}%',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: statusColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      LinearProgressIndicator(
+                        value: progress,
+                        backgroundColor: Colors.grey[300],
+                        valueColor: AlwaysStoppedAnimation<Color>(statusColor),
+                        minHeight: 6,
+                      ),
+                    ],
+                  ),
+                ],
                 if (currentPhase != null) ...[
                   const SizedBox(height: 12),
                   Container(
@@ -150,11 +188,11 @@ class ProjectCard extends StatelessWidget {
   }
 
   IconData _getStatusIcon() {
-    if (status == 'مقبول') {
+    if (status.contains('مقبول') || status.contains('نشط') || status.contains('مكتمل')) {
       return Icons.check_circle;
-    } else if (status == 'مرفوض') {
+    } else if (status.contains('مرفوض') || status.contains('ملغي')) {
       return Icons.cancel;
-    } else if (status == 'قيد المراجعة') {
+    } else if (status.contains('مراجعة') || status.contains('متوقف')) {
       return Icons.hourglass_empty;
     } else {
       return Icons.folder;

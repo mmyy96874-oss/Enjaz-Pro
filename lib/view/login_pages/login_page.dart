@@ -1,70 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'auth_widgets.dart';
-import 'register_page.dart';
-import 'forgot_password_page.dart';
-import '../../routes.dart';
+import '../../presentation/controllers/auth_controller.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _rememberMe = false;
-  bool _isLoading = false;
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  bool _isValidEmail(String input) {
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    return emailRegex.hasMatch(input);
-  }
-
-  bool _isValidPhone(String input) {
-    final phoneRegex = RegExp(r'^\d{6,15}$');
-    return phoneRegex.hasMatch(input);
-  }
-
-  Future<void> _login() async {
-    if (!_formKey.currentState!.validate()) return; // التحقق فقط عند الضغط
-
-    setState(() => _isLoading = true);
-
-    // محاكاة عملية تسجيل الدخول
-    await Future.delayed(const Duration(seconds: 2));
-
-    if (mounted) {
-      setState(() => _isLoading = false);
-      Navigator.pushReplacementNamed(context, AppRoutes.admin);
-    }
-  }
-
-  String? _validateEmailOrPhone(String? value) {
-    if (value == null || value.isEmpty) return 'هذا الحقل مطلوب';
-    if (!_isValidEmail(value) && !_isValidPhone(value)) {
-      return 'أدخل بريد إلكتروني صحيح أو رقم هاتف صالح';
-    }
-    return null;
-  }
-
-  String? _validatePassword(String? value) {
-    if (value == null || value.isEmpty) return 'يرجى إدخال كلمة المرور';
-    if (value.length < 6) return 'يجب أن تكون كلمة المرور 6 أحرف على الأقل';
-    return null;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find<AuthController>();
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -84,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: Form(
-                    key: _formKey,
+                    key: authController.loginFormKey,
                     child: Column(
                       children: [
                         const Text(
@@ -96,66 +41,54 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 25),
 
-                        // حقل البريد أو الهاتف مع validator
+                        // Email Field
                         CustomAuthField(
-                          label: "رقم الهاتف أو البريد الإلكتروني",
-                          hint: "أدخل رقم الهاتف أو البريد",
-                          icon: Icons.person_outline,
+                          label: "البريد الإلكتروني",
+                          hint: "أدخل البريد الإلكتروني",
+                          icon: Icons.email_outlined,
                           keyboardType: TextInputType.emailAddress,
-                          controller: _emailController,
-                          validator: _validateEmailOrPhone,
+                          controller: authController.emailController,
+                          validator: authController.validateEmail,
                         ),
                         const SizedBox(height: 20),
 
-                        // حقل كلمة المرور مع validator
+                        // Password Field
                         CustomAuthField(
                           label: "كلمة المرور",
                           hint: "أدخل كلمة المرور",
                           icon: Icons.lock_outline,
                           isPassword: true,
-                          controller: _passwordController,
+                          controller: authController.passwordController,
                           textInputAction: TextInputAction.done,
-                          validator: _validatePassword,
+                          validator: authController.validatePassword,
                         ),
+                        
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           textDirection: TextDirection.rtl,
                           children: [
                             TextButton(
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (c) => const ForgotPasswordPage()),
-                              ),
+                              onPressed: () => Get.toNamed('/forgot-password'),
                               child: const Text("نسيت كلمة المرور؟"),
-                            ),
-                            Row(
-                              children: [
-                                const Text("تذكرني",
-                                    style: TextStyle(color: Colors.grey)),
-                                Checkbox(
-                                  value: _rememberMe,
-                                  onChanged: (v) =>
-                                      setState(() => _rememberMe = v!),
-                                ),
-                              ],
                             ),
                           ],
                         ),
                         const SizedBox(height: 20),
 
-                        // زر تسجيل الدخول
+                        // Login Button
                         SizedBox(
                           width: double.infinity,
                           height: 55,
-                          child: ElevatedButton(
-                            onPressed: _isLoading ? null : _login,
+                          child: Obx(() => ElevatedButton(
+                            onPressed: authController.isLoading.value 
+                                ? null 
+                                : authController.login,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF3B67F3),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
                             ),
-                            child: _isLoading
+                            child: authController.isLoading.value
                                 ? const SizedBox(
                               width: 24,
                               height: 24,
@@ -170,22 +103,18 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(
                                   color: Colors.white, fontSize: 18),
                             ),
-                          ),
+                          )),
                         ),
                         const SizedBox(height: 20),
 
-                        // رابط إنشاء حساب / تواصل مع الإدارة
+                        // Register Link
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextButton(
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (c) => const RegisterPage()),
-                              ),
+                              onPressed: () => Get.toNamed('/register'),
                               child: const Text(
-                                "تواصل مع الإدارة",
+                                "إنشاء حساب جديد",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
